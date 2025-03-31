@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ระบบยืมซื้อหนังสือ</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<style>
+    body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('library.jpg') no-repeat center center/cover;
+    opacity: 0.5; /* ปรับความจาง */
+    z-index: -1;
+    
+}
+
+
+/* ทำให้พื้นหลังจางลง */
+.background-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* ปรับค่าความจาง (0.5 = 50%) */
+    z-index: -1;
+}
+</style>
+<body>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script> 
+<!-- Navbar เมนูนำทาง -->
+<nav class="navbar navbar-expand-lg navbar navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">LIBRERY</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="index.html">Home <span class="sr-only"></span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="login.html">Login</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="order.html">ยืมหนังสือ</a>
+          </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">ติดต่อ <span class="sr-only"></span></a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            หมวดหมู่หนังสือ
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="#">วรรณกรรมและนิยาย</a>
+            <a class="dropdown-item" href="#">ศาสนาและจิตวิญญาณ</a>
+            <a class="dropdown-item" href="#">ประวัติศาสตร์และสารคดี</a>
+            <a class="dropdown-item" href="#">วิทยาศาสตร์และเทคโนโลยี</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#">อื่นๆ</a>
+          </div>
+        </li>
+          
+        </ul>
+      </div>
+      
+          
+          
+        </li>
+        
+        
+      </ul>
+      <form class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+      </form>
+    </div>
+  </nav>
+
+<!-- รายการหนังสือ -->
+<div class="container mt-4">
+    <h2 class="text-center">📚 เลือกหนังสือที่ต้องการยืม</h2>
+    <div class="row" id="book-list">
+        <!-- รายการหนังสือจะถูกเพิ่มที่นี่โดย JavaScript -->
+    </div>
+</div>
+
+<!-- ตะกร้าสินค้า -->
+<div class="container mt-4">
+    <h4>🛒 ตะกร้าหนังสือ</h4>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>หนังสือ</th>
+                <th>ราคา (บาท)</th>
+                <th>จำนวน</th>
+                <th>รวม</th>
+                <th>ลบ</th>
+            </tr>
+        </thead>
+        <tbody id="cart-list"></tbody>
+    </table>
+    <h5 class="text-end">💰 ยอดรวม: <span id="grand-total">0</span> บาท</h5>
+</div>
+
+<!-- ฟอร์มกรอกข้อมูลลูกค้า -->
+<div class="container mt-4">
+    <h4>📝 ข้อมูลผู้ยืม</h4>
+    <form>
+        <div class="mb-2">
+            <label>ชื่อ-นามสกุล:</label>
+            <input type="text" class="form-control" required>
+        </div>
+        <div class="mb-2">
+            <label>เบอร์โทรศัพท์:</label>
+            <input type="tel" class="form-control" required>
+        </div>
+        <div class="mb-2">
+            <label>วันที่คืน:</label>
+            <textarea class="form-control" rows="3" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-success w-100">ยืนยันการยืม</button>
+    </form>
+</div>
+
+<!-- JavaScript -->
+<script>
+$(document).ready(function () {
+    // 🔹 รายการหนังสือ (เพิ่มให้ครบทุกเล่ม)
+    let books = [
+        { id: 1, name: "Harry Potter", price: 350 },
+        { id: 2, name: "Lord of the Rings", price: 400 },
+        { id: 3, name: "The Martian", price: 300 },
+        { id: 4, name: "Game of Thrones", price: 450 },
+        { id: 5, name: "Percy Jackson", price: 320 },
+        { id: 6, name: "Sherlock Holmes", price: 280 },
+        { id: 7, name: "1984 by George Orwell", price: 310 },
+        { id: 8, name: "To Kill a Mockingbird", price: 290 },
+        { id: 9, name: "Pride and Prejudice", price: 270 },
+        { id: 10, name: "A Brief History of Time", price: 310 },
+        { id: 11, name: "The Gene", price: 290 },
+        { id: 12, name: "How Not to Die", price: 270 }
+        
+        
+        
+    ];
+
+    // 🔹 แสดงรายการหนังสือในหน้าเว็บ
+    books.forEach(book => {
+        $("#book-list").append(`
+            <div class="col-md-4">
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title">${book.name}</h5>
+                        <p class="card-text">ราคา: ${book.price} บาท</p>
+                        <button class="btn btn-primary add-to-cart" data-id="${book.id}" data-name="${book.name}" data-price="${book.price}">เพิ่มลงตะกร้า</button>
+                    </div>
+                </div>
+            </div>
+        `);
+    });
+
+    // 🔹 ตัวแปรเก็บข้อมูลตะกร้าสินค้า
+    let cart = {};
+
+    // ✅ เพิ่มสินค้าในตะกร้า
+    $(document).on("click", ".add-to-cart", function () {
+        let bookId = $(this).data("id");
+        let bookName = $(this).data("name");
+        let bookPrice = $(this).data("price");
+
+        if (cart[bookId]) {
+            cart[bookId].qty++;
+        } else {
+            cart[bookId] = { name: bookName, price: bookPrice, qty: 1 };
+        }
+
+        updateCart();
+    });
+
+    // 🔹 ฟังก์ชันอัปเดตตะกร้าสินค้า
+    function updateCart() {
+        let cartHTML = "";
+        let totalPrice = 0;
+
+        Object.keys(cart).forEach(id => {
+            let item = cart[id];
+            let subtotal = item.price * item.qty;
+            totalPrice += subtotal;
+
+            cartHTML += `
+                <tr>
+                    <td>${item.name}</td>
+                    <td>${item.price}</td>
+                    <td><input type="number" class="form-control cart-qty" data-id="${id}" value="${item.qty}" min="1"></td>
+                    <td>${subtotal}</td>
+                    <td><button class="btn btn-danger remove-item" data-id="${id}">X</button></td>
+                </tr>
+            `;
+        });
+
+        $("#cart-list").html(cartHTML);
+        $("#grand-total").text(totalPrice);
+    }
+
+    // ✅ เปลี่ยนจำหนังสือในตะกร้า
+    $(document).on("input", ".cart-qty", function () {
+        let bookId = $(this).data("id");
+        let newQty = parseInt($(this).val());
+
+        if (newQty > 0) {
+            cart[bookId].qty = newQty;
+        } else {
+            delete cart[bookId];
+        }
+
+        updateCart();
+    });
+
+    // ✅ ลบหนังสือออกจากตะกร้า
+    $(document).on("click", ".remove-item", function () {
+        let bookId = $(this).data("id");
+        delete cart[bookId];
+        updateCart();
+    });
+});
+</script>
+
+</body>
+</html>

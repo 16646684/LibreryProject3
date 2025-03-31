@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ยืมหนังสือ</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    
+</head>
+
+<body class="container mt-5">
+    
+   
+   
+    <!-- Navbar (คัดลอกมาจากหน้า home.html) -->
+    <nav class="navbar navbar-expand-lg navbar navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">LIBRARY</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+              <li class="nav-item active">
+                <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="login.html">Login</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="order.html">วิธีการสั่งซื้อ</a>
+              </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">ติดต่อ <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                หมวดหมู่หนังสือ
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="#">วรรณกรรมและนิยาย</a>
+                <a class="dropdown-item" href="#">ศาสนาและจิตวิญญาณ</a>
+                <a class="dropdown-item" href="#">ประวัติศาสตร์และสารคดี</a>
+                <a class="dropdown-item" href="#">วิทยาศาสตร์และเทคโนโลยี</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#">อื่นๆ</a>
+              </div>
+            </li>
+              
+            </ul>
+          </div>
+    </nav>
+    
+
+    <div class="card p-4">
+        <p>คุณกำลังยืมหนังสือ: <strong id="book-name"></strong></p>
+        <div class="container mt-3">
+            <div class="text-center text-white py-2" style="background-color: #6a5acd;">
+                <h5>แบบฟอร์มยืมหนังสือ</h5>
+            </div>
+        </div>
+        <div class="text-center mt-3 mb-3">
+            <img id="book-image" src="https://via.placeholder.com/150" alt="Book Image" class="img-fluid">
+        </div>        
+        <form>
+            <div class="mb-3">
+                <label class="form-label">ชื่อผู้ยืม</label>
+                <input type="text" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">วันที่ยืม</label>
+                <input type="date" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">วันที่คืน</label>
+                <input type="date" class="form-control" required>
+            </div>
+            <button type="submit" class="btn btn-success">ยืนยันการยืม</button>
+        </form>
+    </div>
+
+    <script>
+        // ดึงค่าชื่อหนังสือจาก URL
+        const params = new URLSearchParams(window.location.search);
+        const bookName = params.get("book");
+        document.getElementById("book-name").textContent = bookName ? bookName : "ไม่พบข้อมูล";
+
+        // กำหนดรูปภาพตามชื่อหนังสือ
+        const bookImage = document.getElementById("book-image");
+
+        switch(bookName) {
+            case "Harry Potter":
+                bookImage.src = "Harry Potter 101.jpg";
+                break;
+            case "Lord of the Rings":
+                bookImage.src = "Lord of the Rings 102.jpg";
+                break;
+            case "The Martian":
+                bookImage.src = "The Martian 103.jpg";
+                break;
+            case "The Book of Joy":
+                bookImage.src = "The Book of Joy 201.jpg";
+                break;
+            case "The Bible":
+                bookImage.src = "The Bible 202.jpg";
+                break;
+            case "The Power of Now":
+                bookImage.src = "The Power of Now 203.jpg";
+                break;
+            case "Sapiens":
+                bookImage.src = "Sapiens 301.jpg";
+                break;
+            case "The Art of War":
+                bookImage.src = "The Art of War 302.jpg";
+                break;
+            case "Steve Jobs":
+                bookImage.src = "Steve Jobs 303.jpg";
+                break;
+            case "A Brief History of Time":
+                bookImage.src = "A Brief History of Time 401.jpg";
+                break;
+            case "The Gene":
+                bookImage.src = "The Gene 402.jpg";
+                break;
+            case "How Not to Die":
+                bookImage.src = "How Not to Die 403.jpg";
+                break;
+            default:
+                bookImage.src = "https://via.placeholder.com/150"; // default image if book is not recognized
+                break;
+        }
+    </script>
+
+</body>
+</html>
