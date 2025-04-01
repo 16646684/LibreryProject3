@@ -64,21 +64,22 @@
         <div class="text-center mt-3 mb-3">
             <img id="book-image" src="https://via.placeholder.com/150" alt="Book Image" class="img-fluid">
         </div>        
-        <form>
+        <form id="borrow-form">
             <div class="mb-3">
                 <label class="form-label">ชื่อผู้ยืม</label>
-                <input type="text" class="form-control" required>
+                <input type="text" class="form-control" id="borrower-name" required>
             </div>
             <div class="mb-3">
                 <label class="form-label">วันที่ยืม</label>
-                <input type="date" class="form-control" required>
+                <input type="date" class="form-control" id="borrow-date" required>
             </div>
             <div class="mb-3">
                 <label class="form-label">วันที่คืน</label>
-                <input type="date" class="form-control" required>
+                <input type="date" class="form-control" id="return-date" required>
             </div>
             <button type="submit" class="btn btn-success">ยืนยันการยืม</button>
         </form>
+        
     </div>
 
     <script>
@@ -131,6 +132,50 @@
                 bookImage.src = "https://via.placeholder.com/150"; // default image if book is not recognized
                 break;
         }
+        document.addEventListener("DOMContentLoaded", () => {
+    // ตั้งค่าชื่อหนังสือ
+    const bookName = getBookNameFromURL();
+    document.getElementById("book-name").textContent = bookName;
+
+    // ดักจับการ submit ฟอร์ม
+    document.getElementById("borrow-form").addEventListener("submit", async function(event) {
+        event.preventDefault(); // ป้องกันการ reload หน้า
+
+        // ดึงค่าจากฟอร์ม
+        const borrowerName = document.getElementById("borrower-name").value;
+        const borrowDate = document.getElementById("borrow-date").value;
+        const returnDate = document.getElementById("return-date").value;
+
+        // สร้าง object ข้อมูล
+        const borrowData = {
+            title: bookName,
+            Name: borrowerName,
+            borrowdate: borrowDate,
+            returndate: returnDate
+        };
+
+        // ส่งข้อมูลไปยังเซิร์ฟเวอร์
+        try {
+            const response = await fetch("http://localhost:3000/borrow", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(borrowData)
+            });
+
+            if (response.ok) {
+                alert("บันทึกข้อมูลเรียบร้อย!");
+                document.getElementById("borrow-form").reset(); // ล้างค่าในฟอร์ม
+            } else {
+                alert("เกิดข้อผิดพลาดในการบันทึกข้อมูล");
+            }
+        } catch (error) {
+            console.error("Error:", error);
+            alert("เกิดข้อผิดพลาดในการเชื่อมต่อเซิร์ฟเวอร์");
+        }
+    });
+});
     </script>
 
 </body>
