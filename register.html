@@ -1,72 +1,215 @@
-
+<!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="login.css  ">
-    
-    
-</head>
-<style>
-  body::before {
-    content: "";
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    
-    height: 100%;
-    background: url('library.jpg') no-repeat center center/cover;
-    opacity: 0.5; /* ปรับความจาง */
-    z-index: -1;
-}
-
-/* ทำให้พื้นหลังจางลง */
-.background-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    
-    background-color: rgba(0, 0, 0, 0.5); /* ปรับค่าความจาง (0.5 = 50%) */
-    z-index: -1;
-}    
-
-
-
-
-</style>
-<body>
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<!------ Include the above in your HEAD tag ---------->
-<div class="background-overlay"></div> <!-- ใช้ปรับความจางของพื้นหลัง -->
-
-<div class="wrapper fadeInDown">
-  <div id="formContent">
-    <!-- Tabs Titles -->
-
-    <!-- Icon -->
-    <div class="fadeIn first">
-      <img src="3f9470b34a8e3f526dbdb022f9f19cf7.jpg" id="icon" alt="User Icon" />
-      <h1>Register</h1>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Register</title>
+    <link
+      href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      rel="stylesheet"
+      id="bootstrap-css"
+    />
+    <link
+      href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+        font-family: "Quicksand", sans-serif;
+        font-size: 16px;
+      }
+      body {
+        width: 100%;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: url("library.jpg") no-repeat center center/cover;
+        background-size: cover;
+      }
+      .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+        padding: 20px;
+      }
+      .container::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background: url("https://images-ext-1.discordapp.net/external/zSj2r-sa-BW5iyhZw5LAdrC7m02-i_xfYy6_eqFCaB8/https/wallpapers-clan.com/wp-content/uploads/2024/03/starfall-night-sky-mountains-aesthetic-gif-preview-desktop-wallpaper.gif")
+          no-repeat center center/cover;
+        background-size: cover;
+        z-index: -1;
+        filter: blur(1px);
+      }
+      .container-box {
+        max-width: 850px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background-color: #ffffff;
+        box-shadow: 0px 0px 19px 5px rgba(0, 0, 0, 0.2);
+        border-radius: 15px;
+        padding: 20px;
+      }
+      .logo-container {
+        width: 120px;
+        height: 120px;
+        margin-bottom: 10px;
+      }
+      .logo-container img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+      .right {
+        padding: 20px 40px;
+        text-align: center;
+      }
+      h2 {
+        margin-bottom: 10px;
+      }
+      .field {
+        width: 100%;
+        padding: 0.5rem 1rem;
+        border: 2px solid rgba(0, 0, 0, 0.2);
+        background-color: rgba(230, 230, 230, 0.6);
+        font-size: 1.1rem;
+        margin-bottom: 22px;
+        transition: 0.3s;
+      }
+      .field:hover {
+        border: 2px solid #000;
+      }
+      .field:focus {
+        border: 2px solid rgba(30, 85, 250, 0.8);
+        background-color: #fff;
+      }
+      .btn {
+        width: 100%;
+        padding: 0.5rem 1rem;
+        border: none;
+        background-color: #828ef3;
+        color: #fff;
+        font-size: 1.1rem;
+        cursor: pointer;
+        transition: 0.6s;
+      }
+      .btn:hover {
+        background-color: rgba(27, 175, 69, 0.8);
+      }
+      .wrapper {
+        margin-top: 100px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <form id="register-form" class="container-box" method="post">
+        <h2>ลงทะเบียนข้อมูล</h2>
+        <div class="right">
+          <input
+            type="text"
+            class="field"
+            placeholder="ชื่อ-นามสกุล"
+            id="name"
+            required
+          />
+          <input
+            type="text"
+            class="field"
+            placeholder="เบอร์โทรศัพท์"
+            id="phone"
+            required
+          />
+          <input
+            type="text"
+            class="field"
+            placeholder="username"
+            id="username"
+            required
+          />
+          <input
+            type="password"
+            class="field"
+            placeholder="password"
+            id="password"
+            required
+          /><br />
+          <button class="btn" type="submit">ลงทะเบียน</button>
+        </div>
+      </form>
     </div>
+    <script>
+      const apiUrl = "http://localhost:3000/register";
 
-    <!-- Login Form -->
-    <form>
-      <input type="text" id="login" class="fadeIn second" name="login" placeholder="Name-Lastname">
-      <input type="text" id="login" class="fadeIn second" name="login" placeholder="Phone number"> 
-      <input type="text" id="login" class="fadeIn second" name="login" placeholder="Username">
-      <input type="text" id="login" class="fadeIn second" name="login" placeholder="Password">
-      <button type="button"href="" class="btn btn-success " value="Register"onclick="window.location.href='login.html'">submid</button>
+      document
+        .getElementById("register-form")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+          const newMember = {
+            name: document.getElementById("name").value.trim(),
+            phone: document.getElementById("phone").value.trim(),
+            username: document.getElementById("username").value.trim(),
+            password: document.getElementById("password").value.trim(),
+          };
 
-    </form>
+          // ตรวจสอบเงื่อนไขของ username, password และ phone
+          if (newMember.username.length < 6) {
+            alert("ชื่อผู้ใช้ต้องมีอย่างน้อย 6 ตัวอักษร");
+            return;
+          }
 
-    
-  </div>
-</div>
-</body>
+          if (newMember.password.length < 8 || newMember.password.length > 20) {
+            alert("รหัสผ่านต้องมีความยาว 8-20 ตัวอักษร");
+            return;
+          }
+
+          if (newMember.phone.length < 10) {
+            alert("เบอร์โทรศัพท์ต้องมีความยาว 10 ตัวอักษร");
+            return;
+          }
+
+          fetch(apiUrl, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(newMember),
+          })
+            .then((res) => res.json())
+            .then((data) => {
+              if (data.error) {
+                alert("Error: " + data.error);
+              } else {
+                alert("Registration successful!");
+                window.location.href = "login.html";
+              }
+            })
+            .catch((err) => {
+              console.error("Error:", err);
+              alert("Registration failed. Please try again.");
+            });
+        });
+    </script>
+  </body>
 </html>
